@@ -1,4 +1,6 @@
-const { Client, IntentsBitField } = require('discord.js');
+const { Client, IntentsBitField, ThreadAutoArchiveDuration } = require('discord.js');
+const { CommandKit } = require('commandkit');
+const path = require('path');
 require('dotenv').config();
 const client = new Client( {
     intents: [
@@ -8,6 +10,19 @@ const client = new Client( {
         IntentsBitField.Flags.MessageContent
     ],
 });
+
+new CommandKit({
+    client,
+    commandsPath: path.join(__dirname, 'commands'),
+    eventsPath: path.join(__dirname, 'events'),
+    validationsPath: path.join(__dirname, 'validations'),
+    devGuildIds: [process.env.DEV_GUILD_ID],
+    devUserIds: [process.env.DEV_USER_ID],
+    devRoleIds: [],
+    skipBuiltInValidations: true,
+    bulkRegister: true,
+});
+
 
 client.on('ready', (c) => {
     console.log(`Logged in as ${c.user.tag}!`);
