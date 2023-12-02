@@ -4,6 +4,12 @@ module.exports = {
     data: {
         name: 'getsummoner',
         description: 'Get summoner information from League of Legends',
+        options: [{
+            name: 'name',
+            type: 3, // Integer representing 'STRING' type in Discord API
+            description: 'The name of the summoner',
+            required: true,
+        }],
     },
 
     run: async ({ interaction, client }) => {
@@ -12,7 +18,7 @@ module.exports = {
 
         try {
             const summoner = await rAPI.summoner.getBySummonerName({
-                region: PlatformId.EUW1, // Change to desired region
+                region: PlatformId.OC1,
                 summonerName: summonerName,
             });
 
