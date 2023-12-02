@@ -2,15 +2,20 @@ const { Client, IntentsBitField, ThreadAutoArchiveDuration } = require('discord.
 const { CommandKit } = require('commandkit');
 const path = require('path');
 require('dotenv').config();
+const { RiotAPI, RiotAPITypes, PlatformId } = require('@fightmegg/riot-api');
+
+
+// Initialize discord bot client
 const client = new Client( {
-    intents: [
-        IntentsBitField.Flags.Guilds,
-        IntentsBitField.Flags.GuildMembers,
-        IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.MessageContent
+intents: [
+    IntentsBitField.Flags.Guilds,
+    IntentsBitField.Flags.GuildMembers,
+    IntentsBitField.Flags.GuildMessages,
+    IntentsBitField.Flags.MessageContent
     ],
 });
 
+// Initialise slash commands
 new CommandKit({
     client,
     commandsPath: path.join(__dirname, 'commands'),
@@ -23,9 +28,12 @@ new CommandKit({
     bulkRegister: true,
 });
 
+// Initialize Riot API
+const riotAPI = new RiotAPI(process.env.RIOT_API_KEY);
 
 client.on('ready', (c) => {
     console.log(`Logged in as ${c.user.tag}!`);
 });
 
 client.login(process.env.DISCORD_BOT_TOKEN);
+
