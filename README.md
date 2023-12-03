@@ -18,14 +18,17 @@ To set up LeagueBot for your Discord server, follow these steps:
    cd leaguebot
 
 2. Install Dependencies
+   ```bash
    npm install
 
 3. Environment Variables
    Create a .env file in the root directory and add the following:
+   ```bash
    DISCORD_BOT_TOKEN=your_discord_bot_token
    RIOT_API_KEY=your_riot_api_key
 
 4. Starting the Bot
+   ```bash
    npm start
 
 ## Usage
