@@ -12,22 +12,28 @@ LeagueBot is a Discord bot designed to interact with the League of Legends API. 
 
 To set up LeagueBot for your Discord server, follow these steps:
 
-1. **Clone the Repository**
+1. **Set up your discord bot**
+
+Follow the instructions on this page: https://discord.com/developers/docs/getting-started
+
+
+2. **Clone the Repository**
    ```bash
    git clone https://github.com/taeyeong2k/leaguebot.git
    cd leaguebot
 
-2. Install Dependencies
+3. Install Dependencies
    ```bash
    npm install
 
-3. Environment Variables
+4. Environment Variables
+
    Create a .env file in the root directory and add the following:
    ```bash
    DISCORD_BOT_TOKEN=your_discord_bot_token
    RIOT_API_KEY=your_riot_api_key
 
-4. Starting the Bot
+5. Starting the Bot
    ```bash
    npm start
 
