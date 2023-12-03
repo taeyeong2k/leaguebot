@@ -1,5 +1,5 @@
-const fs = require('fs').promises;
-const path = require('path');
+const { isUserRegistered } = require('../../utils/summonerHelpers');
+const { readPlayerList } = require('../../utils/jsonFileHandler');
 
 module.exports = {
     data: {
@@ -9,15 +9,12 @@ module.exports = {
 
     run: async ({ interaction, client }) => {
         const discordUserId = interaction.user.id; // Get the Discord user ID
-        const filePath = path.join(__dirname, '../../playerlist.json'); // Correct path to your JSON file
 
         try {
-            // Read the existing data
-            let data = await fs.readFile(filePath, 'utf8');
-            data = data ? JSON.parse(data) : {};
+            const isRegistered = await isUserRegistered(discordUserId);
 
-            // Check if this Discord user has a summoner registered
-            if (data[discordUserId]) {
+            if (isRegistered) {
+                const data = await readPlayerList();
                 const summonerDetails = data[discordUserId];
                 interaction.reply(`You have registered the summoner: ${summonerDetails.name}`);
             } else {

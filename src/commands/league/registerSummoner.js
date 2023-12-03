@@ -1,10 +1,11 @@
-const { getSummoner } = require('../../riotapi'); // Adjust the path according to your project structure
-const fs = require('fs').promises;
-const path = require('path');
+const { getSummoner } = require('../../utils/riotapi');
+const { isUserRegistered } = require('../../utils/summonerHelpers');
+const { readPlayerList, writePlayerList } = require('../../utils/jsonFileHandler');
+
 module.exports = {
     data: {
         name: 'registersummoner',
-        description: 'Register a league of legends summoner to your discord account',
+        description: 'Register a League of Legends summoner to your Discord account',
         options: [{
             name: 'name',
             type: 3, // Integer representing 'STRING' type in Discord API
@@ -16,21 +17,20 @@ module.exports = {
     run: async ({ interaction, client }) => {
         const summonerName = interaction.options.getString('name');
         const discordUserId = interaction.user.id; // Get the Discord user ID
-        const filePath = path.join(__dirname, '../../playerlist.json'); // Correct path to your JSON file
 
         try {
-            // Read the existing data
-            let data = await fs.readFile(filePath, 'utf8');
-            data = data ? JSON.parse(data) : {};
-
             // Check if this Discord user has already registered a summoner
-            if (data[discordUserId]) {
+            const isRegistered = await isUserRegistered(discordUserId);
+            if (isRegistered) {
                 return interaction.reply('You have already registered a summoner.');
             }
 
             // Fetch summoner information
             const summoner = await getSummoner(summonerName);
             console.log(summoner);
+
+            // Read the existing data
+            let data = await readPlayerList();
 
             // Add specific summoner details to the list with Discord user ID as key
             data[discordUserId] = {
@@ -41,7 +41,7 @@ module.exports = {
             };
 
             // Write the updated data back to the JSON file
-            await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+            await writePlayerList(data);
 
             interaction.reply(`Registered Summoner: ${summoner.name}`);
         } catch (error) {
