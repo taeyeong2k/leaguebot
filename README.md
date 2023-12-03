@@ -1,6 +1,6 @@
 # LeagueBot for Discord
 
-LeagueBot is a Discord bot designed to interact with the League of Legends API. It allows users to register their League of Legends summoner name with their Discord account, check summoner information, and unregister their summoner name.
+LeagueBot is a Discord bot designed to interact with the League of Legends API. It allows users to register their League of Legends summoner name with their Discord account, check summoner information, check match history, and more.
 
 ## Features
 
@@ -20,6 +20,8 @@ To set up LeagueBot for your Discord server, follow these steps:
 Follow the instructions on this page: https://discord.com/developers/docs/getting-started
 
 2. **Sign up for Riot's developer portal and get your development api key**
+
+
 Apply as a developer at https://developer.riotgames.com/ and retrieve your development api key.
 
 
