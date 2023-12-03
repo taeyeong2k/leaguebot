@@ -2,7 +2,6 @@ const { Client, IntentsBitField, ThreadAutoArchiveDuration } = require('discord.
 const { CommandKit } = require('commandkit');
 const path = require('path');
 require('dotenv').config();
-const { RiotAPI, RiotAPITypes, PlatformId } = require('@fightmegg/riot-api');
 
 
 // Initialize discord bot client
@@ -28,8 +27,6 @@ new CommandKit({
     bulkRegister: true,
 });
 
-// Initialize Riot API
-const riotAPI = new RiotAPI(process.env.RIOT_API_KEY);
 
 client.on('ready', (c) => {
     console.log(`Logged in as ${c.user.tag}!`);

@@ -1,4 +1,4 @@
-const { RiotAPI, PlatformId } = require('@fightmegg/riot-api');
+const { getSummoner } = require('../../riotapi'); // Adjust the path according to your project structure
 
 module.exports = {
     data: {
@@ -14,19 +14,13 @@ module.exports = {
 
     run: async ({ interaction, client }) => {
         const summonerName = interaction.options.getString('name');
-        const rAPI = new RiotAPI(process.env.RIOT_API_KEY);
-
         try {
-            const summoner = await rAPI.summoner.getBySummonerName({
-                region: PlatformId.OC1,
-                summonerName: summonerName,
-            });
-
-            // Respond with the summoner information
+            const summoner = await getSummoner(summonerName);
+            console.log(summoner);
             interaction.reply(`Summoner Name: ${summoner.name}, Level: ${summoner.summonerLevel}`);
         } catch (error) {
             console.error(error);
-            interaction.reply('Failed to fetch summoner information.');
+            interaction.reply(error.message);
         }
     },
 
