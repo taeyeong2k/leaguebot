@@ -35,7 +35,7 @@ async function getMatches(puuid, queue = null, numberOfMatches = 20) {
 async function getMatchInfo(matchId) {
     try {
         const matchInfo = await rAPI.matchV5.getMatchById({
-            cluster: 'AMERICAS', // Replace with the appropriate cluster
+            cluster: 'SEA',
             matchId
         });
         return matchInfo;
