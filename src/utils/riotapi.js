@@ -32,4 +32,17 @@ async function getMatches(puuid, queue = null, numberOfMatches = 20) {
     }
 }
 
-module.exports = { getSummoner, getMatches };
+async function getMatchInfo(matchId) {
+    try {
+        const matchInfo = await rAPI.matchV5.getMatchById({
+            cluster: 'AMERICAS', // Replace with the appropriate cluster
+            matchId
+        });
+        return matchInfo;
+    } catch (error) {
+        console.error('Failed to fetch match information:', error);
+        throw new Error('Failed to fetch match information.');
+    }
+}
+
+module.exports = { getSummoner, getMatches, getMatchInfo };
