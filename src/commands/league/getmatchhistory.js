@@ -1,6 +1,6 @@
 const { isUserRegistered, getRegisteredSummonerName } = require('../../utils/summonerHelpers');
 const { getSummoner, getMatches, getMatchInfo, parseMatchInfo} = require('../../utils/riotAPIHelpers');
-//test
+
 module.exports = {
     data: {
         name: 'getmatchhistory',
