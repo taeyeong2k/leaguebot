@@ -1,4 +1,4 @@
-const { getSummoner } = require('../../utils/riotapi');
+const { getSummoner } = require('../../utils/riotAPIHelpers');
 const { isUserRegistered } = require('../../utils/summonerHelpers');
 const { readPlayerList, writePlayerList } = require('../../utils/jsonFileHandler');
 

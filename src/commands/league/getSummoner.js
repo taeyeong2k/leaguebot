@@ -1,4 +1,4 @@
-const { getSummoner } = require('../../utils/riotapi'); // Adjust the path
+const { getSummoner } = require('../../utils/riotAPIHelpers'); // Adjust the path
 const { isUserRegistered, getRegisteredSummonerName } = require('../../utils/summonerHelpers');
 
 module.exports = {
