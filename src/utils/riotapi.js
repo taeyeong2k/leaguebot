@@ -1,5 +1,4 @@
-// src/riotapi.js
-const { RiotAPI, PlatformId } = require('@fightmegg/riot-api');
+const { RiotAPI, RiotAPITypes, PlatformId } = require('@fightmegg/riot-api');
 
 const rAPI = new RiotAPI(process.env.RIOT_API_KEY);
 
@@ -16,4 +15,21 @@ async function getSummoner(summonerName) {
     }
 }
 
-module.exports = { getSummoner };
+async function getMatches(puuid, queue = null, numberOfMatches = 20) {
+    try {
+        const matchIds = await rAPI.matchV5.getIdsByPuuid({
+            cluster: 'SEA', 
+            puuid,
+            params: {
+                queue, 
+                count: numberOfMatches
+            }
+        });
+        return matchIds;
+    } catch (error) {
+        console.error('Failed to fetch matches:', error);
+        throw error;
+    }
+}
+
+module.exports = { getSummoner, getMatches };
