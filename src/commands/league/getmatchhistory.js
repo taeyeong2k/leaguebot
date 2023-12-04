@@ -65,7 +65,7 @@ module.exports = {
             for (let i = 0; i < matchIds.length; i++) {
                 const matchId = matchIds[i];
                 const matchDetails = await getMatchInfo(matchId);
-                matchInfo[matchId] = await parseMatchInfo(matchDetails);
+                matchInfo[matchId] = await parseMatchInfo(matchDetails, puuid);
                 console.log(matchInfo);
             }
             

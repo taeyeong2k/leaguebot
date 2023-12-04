@@ -46,6 +46,16 @@ async function getMatchInfo(matchId) {
 }
 
 async function parseMatchInfo(matchInfo, puuid) {
+    participants = matchInfo['metadata']['participants'];
+    let participantIndex;
+    for (let i = 0; i < participants.length; i++) {
+        if (participants[i] === puuid) {
+            participantIndex = i;
+        }
+    }
+    console.log("puuid", puuid);
+    console.log("participants: ", participants);
+    console.log("participantIndex: ", participantIndex);
     console.log(matchInfo['info']['participants'][0]);
 };
 
