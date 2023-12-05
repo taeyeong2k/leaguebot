@@ -4,10 +4,15 @@ async function isUserRegistered(discordUserId) {
     const data = await readPlayerList();
     return !!data[discordUserId];
 }
-async function getRegisteredSummonerName(discordUserId) {
+async function getRegisteredRiotId(discordUserId) {
     const data = await readPlayerList();
-    return data[discordUserId] ? data[discordUserId].name : null;
+    if (data[discordUserId]) {
+        const { gameName, tagLine, puuid } = data[discordUserId];
+        return { gameName, tagLine, puuid };
+    }
+    return { gameName: null, tagLine: null, puuid: null };
 }
 
-module.exports = { isUserRegistered, getRegisteredSummonerName };
+
+module.exports = { isUserRegistered, getRegisteredRiotId };
 

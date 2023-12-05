@@ -1,5 +1,5 @@
-const { isUserRegistered, getRegisteredSummonerName } = require('../../utils/summonerHelpers');
-const { getSummoner, getMatches, getMatchInfo, parseMatchInfo} = require('../../utils/riotAPIHelpers');
+const { getMatches, getMatchInfo, parseMatchInfo } = require('../../utils/riotAPIHelpers');
+const { isUserRegistered, getRegisteredRiotId } = require('../../utils/summonerHelpers');
 
 module.exports = {
     data: {
@@ -7,9 +7,15 @@ module.exports = {
         description: 'Get match history for a summoner',
         options: [
             {
-                name: 'summoner',
+                name: 'gamename',
                 type: 3, // STRING type
-                description: 'The name of the summoner',
+                description: 'Riot Id Name',
+                required: false,
+            },
+            {
+                name: 'tagline',
+                type: 3, // STRING type
+                description: 'Riot Id Tagline',
                 required: false,
             },
             {
@@ -26,12 +32,11 @@ module.exports = {
             }
         ],
     },
-
     run: async ({ interaction, client }) => {
-        const summonerNameInput = interaction.options.getString('summoner');
+        const gameNameInput = interaction.options.getString('gamename');
+        const tagLineInput = interaction.options.getString('tagline');
         const queueTypeInput = interaction.options.getString('queue');
         const numberOfMatches = interaction.options.getInteger('matches') || 1;
-        let summonerName = summonerNameInput;
         let queueId = null;
 
         // Map queue type input to queue ID
@@ -42,36 +47,36 @@ module.exports = {
         } // 'all' or undefined will leave queueId as null
 
         try {
-            // If summonerName is not provided, check if user has a summoner registered
             await interaction.deferReply();
-            if (!summonerName) {
+            let puuid;
+
+            if (!gameNameInput || !tagLineInput) {
                 const discordUserId = interaction.user.id;
-                const isRegistered = await isUserRegistered(discordUserId);
-                if (!isRegistered) {
-                    return interaction.reply('No summoner name provided and you do not have a summoner registered.');
+                if (!await isUserRegistered(discordUserId)) {
+                    return interaction.editReply('No Riot ID provided, and you are not registered.');
                 }
-                summonerName = await getRegisteredSummonerName(discordUserId);
+
+                const registered = await getRegisteredRiotId(discordUserId);
+                puuid = registered.puuid; // Use the stored puuid
+            } else {
+                // If gameName and tagLine are provided, use them to fetch the account and get the puuid
+                const account = await getAccountByRiotId(gameNameInput, tagLineInput);
+                puuid = account.puuid;
             }
 
-            // Fetch summoner PUUID
-            const summonerInfo = await getSummoner(summonerName);
-            const puuid = summonerInfo.puuid;
-
             // Get match history
-
             const matchIds = await getMatches(puuid, queueId, numberOfMatches);
-            matchInfo = {};
+            const matchInfo = {};
 
-            for (let i = 0; i < matchIds.length; i++) {
-                const matchId = matchIds[i];
+            for (let matchId of matchIds) {
                 const matchDetails = await getMatchInfo(matchId);
                 matchInfo[matchId] = await parseMatchInfo(matchDetails, puuid);
-                console.log(matchInfo);
+                // console.log(matchDetails)
             }
             
             // Process matchIds to display match history
-            // This part of the code will depend on how you want to display the match history
-            await interaction.editReply(`Match history for ${summonerName}: ${matchIds.join(', ')}`);
+            await interaction.editReply(`Match history: ${Object.keys(matchInfo).join(', ')}`);
+
 
         } catch (error) {
             console.error(error);

@@ -2,16 +2,18 @@ const { RiotAPI, RiotAPITypes, PlatformId } = require('@fightmegg/riot-api');
 
 const rAPI = new RiotAPI(process.env.RIOT_API_KEY);
 
-async function getSummoner(summonerName) {
+async function getAccountByRiotId(gameName, tagLine) {
     try {
-        const summoner = await rAPI.summoner.getBySummonerName({
-            region: PlatformId.OC1,
-            summonerName: summonerName,
+        const account = await rAPI.account.getByRiotId({
+            region: "ASIA",
+            gameName: gameName,
+            tagLine: tagLine,
         });
-        return summoner;
-    } catch (error) {
+        return account;
+    }
+    catch (error) {
         console.error(error);
-        throw new Error('Failed to fetch summoner information.');
+        throw new Error('Failed to fetch account information.');
     }
 }
 
@@ -53,10 +55,8 @@ async function parseMatchInfo(matchInfo, puuid) {
             participantIndex = i;
         }
     }
-    console.log("puuid", puuid);
-    console.log("participants: ", participants);
-    console.log("participantIndex: ", participantIndex);
-    console.log(matchInfo['info']['participants'][0]);
+    console.log(matchInfo['info']['participants'][participantIndex]);
+    
 };
 
-module.exports = { getSummoner, getMatches, getMatchInfo, parseMatchInfo };
+module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId };

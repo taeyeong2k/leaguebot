@@ -3,8 +3,8 @@ const { readPlayerList } = require('../../utils/jsonFileHandler');
 
 module.exports = {
     data: {
-        name: 'checksummoner',
-        description: 'Check if you have a summoner registered',
+        name: 'checkregistered',
+        description: 'Check if you have a Riot ID registered',
     },
 
     run: async ({ interaction, client }) => {
@@ -16,13 +16,13 @@ module.exports = {
             if (isRegistered) {
                 const data = await readPlayerList();
                 const summonerDetails = data[discordUserId];
-                interaction.reply(`You have registered the summoner: ${summonerDetails.name}`);
+                interaction.reply(`You have registered the Riot ID: ${summonerDetails.gameName} #${summonerDetails.tagLine}`);
             } else {
-                interaction.reply('You do not have a summoner registered. To register a summoner, use the `/registersummoner` command.');
+                interaction.reply('You do not have a summoner registered. To register your Riot ID, use /register.');
             }
         } catch (error) {
             console.error(error);
-            interaction.reply('Failed to check summoner registration.');
+            interaction.reply('Failed to check Riot ID.');
         }
     },
 

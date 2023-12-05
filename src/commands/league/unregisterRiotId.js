@@ -3,8 +3,8 @@ const { isUserRegistered } = require('../../utils/summonerHelpers');
 
 module.exports = {
     data: {
-        name: 'unregistersummoner',
-        description: 'Unregister your League of Legends summoner',
+        name: 'unregister',
+        description: 'Unregister your Riot ID',
     },
 
     run: async ({ interaction, client }) => {
@@ -26,10 +26,10 @@ module.exports = {
             // Write the updated data back to the JSON file
             await writePlayerList(data);
 
-            interaction.reply('Your summoner registration has been removed.');
+            interaction.reply('Your Riot ID has been removed.');
         } catch (error) {
             console.error(error);
-            interaction.reply('Failed to unregister summoner.');
+            interaction.reply('Failed to unregister Riot ID.');
         }
     },
 
