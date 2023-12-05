@@ -56,6 +56,21 @@ async function parseMatchInfo(matchInfo, puuid) {
         }
     }
     console.log(matchInfo['info']['participants'][participantIndex]);
+    const champion = matchInfo['info']['participants'][participantIndex]['championName'];
+    const win = matchInfo['info']['participants'][participantIndex]['win'];
+    const gameName = matchInfo['info']['participants'][participantIndex]['riotIdGameName'];
+    const tagLine = matchInfo['info']['participants'][participantIndex]['riotIdTagline'];
+    const kills = matchInfo['info']['participants'][participantIndex]['kills'];
+    const assists = matchInfo['info']['participants'][participantIndex]['assists'];
+    const deaths = matchInfo['info']['participants'][participantIndex]['deaths'];
+    console.log("champion: " + champion);
+    console.log("win: " + win);
+    console.log("gameName: " + gameName);
+    console.log("tagLine: " + tagLine);
+    console.log("kills: " + kills);
+    console.log("assists: " + assists);
+    console.log("deaths: " + deaths);
+    
     
 };
 
