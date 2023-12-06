@@ -66,21 +66,41 @@ async function parseMatchInfo(matchInfo, puuid) {
             participantIndex = i;
         }
     }
-    const gameInfo = matchInfo['info'];
+    const basicInfo = parseBasicMatchInfo(matchInfo['info']);
+    console.log(basicInfo);
+    
+    const playerInfo = parsePlayerInfo(matchInfo, participantIndex);
+    console.log(playerInfo);
+
+    const teamInfo = parseTeamInfo(matchInfo);
+    console.log(teamInfo);
+    
+    return {
+        basicInfo: basicInfo,
+        playerInfo: playerInfo,
+        teamInfo: teamInfo,
+    };
+};
+
+function parseBasicMatchInfo(gameInfo) {
     const gameMode = gameInfo['gameMode'];
     const gameDuration = gameInfo['gameDuration'];
     const gameStartTimestamp = gameInfo['gameStartTimestamp'];
     const queueid = gameInfo['queueId'];
-    console.log("gameMode: " + gameMode);
-    console.log("gameDuration: " + gameDuration);
     let date = new Date(gameStartTimestamp).toLocaleDateString("en-AU");
     let dateObj = new Date(gameStartTimestamp * 1000);
     let utcString = dateObj.toUTCString();
     let gameStartTime = utcString.slice(-11, -4);
     let gameStartDateTime = date + " " + gameStartTime;
-    console.log("gameStartTimestamp: " + gameStartDateTime);
-    console.log("queueid: " + queueIdToString(queueid));
-    // console.log(matchInfo['info']['participants'][participantIndex]);
+    return {
+        gameMode: gameMode,
+        gameDuration: gameDuration,
+        gameStartTimestamp: gameStartDateTime,
+        queueid: queueIdToString(queueid),
+    };
+};
+
+function parsePlayerInfo(matchInfo, participantIndex) {
     const champion = matchInfo['info']['participants'][participantIndex]['championName'];
     const win = matchInfo['info']['participants'][participantIndex]['win'];
     const gameName = matchInfo['info']['participants'][participantIndex]['riotIdGameName'];
@@ -89,17 +109,20 @@ async function parseMatchInfo(matchInfo, puuid) {
     const assists = matchInfo['info']['participants'][participantIndex]['assists'];
     const deaths = matchInfo['info']['participants'][participantIndex]['deaths'];
     const position = matchInfo['info']['participants'][participantIndex]['teamPosition'];
-    console.log("champion: " + champion);
-    console.log("position: " + position);
-    console.log("win: " + win);
-    console.log("gameName: " + gameName);
-    console.log("tagLine: " + tagLine);
-    console.log("kills: " + kills);
-    console.log("assists: " + assists);
-    console.log("deaths: " + deaths);
+    return {
+        champion: champion,
+        position: position,
+        win: win,
+        gameName: gameName,
+        tagLine: tagLine,
+        kills: kills,
+        assists: assists,
+        deaths: deaths,
+    };
+};
 
+function parseTeamInfo(matchInfo) {
     const teams = matchInfo['info']['teams'];
-    const teamData = {};
     console.log("teams: " + teams);
     const blueTeam = teams[0];
     const redTeam = teams[1];
@@ -107,14 +130,15 @@ async function parseMatchInfo(matchInfo, puuid) {
     const blueTeamObjectives = blueTeam['objectives'];
     const redTeamBans = redTeam['bans'];
     const redTeamObjectives = redTeam['objectives'];
+    return {
+        blueTeamBans: blueTeamBans,
+        blueTeamObjectives: blueTeamObjectives,
+        redTeamBans: redTeamBans,
+        redTeamObjectives: redTeamObjectives,
+    };
+}
 
-    console.log("blueTeamBans: " + blueTeamBans);
-    console.log("blueTeamObjectives: " + blueTeamObjectives);
-    console.log("redTeamBans: " + redTeamBans);
-    console.log("redTeamObjectives: " + redTeamObjectives);
-    
-    
-    
-};
+
+
 
 module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId };
