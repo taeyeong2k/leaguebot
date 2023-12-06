@@ -75,7 +75,7 @@ module.exports = {
             }
             
             // Process matchIds to display match history
-            await interaction.editReply(`Match history: ${Object.keys(matchInfo).join(', ')}`);
+            await interaction.editReply(`Match history: ${matchInfo}`);
 
 
         } catch (error) {
