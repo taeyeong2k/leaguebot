@@ -34,8 +34,8 @@ module.exports = {
     },
 
     options: {
-        devOnly: true,
-        guildOnly: true,
+        devOnly: false,
+        guildOnly: false,
         userPermissions: ['Administrator', 'AddReactions'],
         botPermissions: ['Administrator', 'AddReactions'],
         deleted: false,
