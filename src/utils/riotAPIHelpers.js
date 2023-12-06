@@ -88,15 +88,33 @@ async function parseMatchInfo(matchInfo, puuid) {
     const kills = matchInfo['info']['participants'][participantIndex]['kills'];
     const assists = matchInfo['info']['participants'][participantIndex]['assists'];
     const deaths = matchInfo['info']['participants'][participantIndex]['deaths'];
+    const position = matchInfo['info']['participants'][participantIndex]['teamPosition'];
     console.log("champion: " + champion);
+    console.log("position: " + position);
     console.log("win: " + win);
     console.log("gameName: " + gameName);
     console.log("tagLine: " + tagLine);
     console.log("kills: " + kills);
     console.log("assists: " + assists);
     console.log("deaths: " + deaths);
-    
 
+    const teams = matchInfo['info']['teams'];
+    const teamData = {};
+    console.log("teams: " + teams);
+    const blueTeam = teams[0];
+    const redTeam = teams[1];
+    const blueTeamBans = blueTeam['bans'];
+    const blueTeamObjectives = blueTeam['objectives'];
+    const redTeamBans = redTeam['bans'];
+    const redTeamObjectives = redTeam['objectives'];
+
+    console.log("blueTeamBans: " + blueTeamBans);
+    console.log("blueTeamObjectives: " + blueTeamObjectives);
+    console.log("redTeamBans: " + redTeamBans);
+    console.log("redTeamObjectives: " + redTeamObjectives);
+    
+    
+    
 };
 
 module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId };
