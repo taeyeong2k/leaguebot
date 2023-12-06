@@ -2,6 +2,17 @@ const { RiotAPI, RiotAPITypes, PlatformId } = require('@fightmegg/riot-api');
 
 const rAPI = new RiotAPI(process.env.RIOT_API_KEY);
 
+function queueIdToString(queueId) {
+    switch (queueId) {
+        case 400:
+            return "norms";
+        case 420:
+            return "ranked";
+        default:
+            return "all";
+    }
+}
+
 async function getAccountByRiotId(gameName, tagLine) {
     try {
         const account = await rAPI.account.getByRiotId({
@@ -55,7 +66,21 @@ async function parseMatchInfo(matchInfo, puuid) {
             participantIndex = i;
         }
     }
-    console.log(matchInfo['info']['participants'][participantIndex]);
+    const gameInfo = matchInfo['info'];
+    const gameMode = gameInfo['gameMode'];
+    const gameDuration = gameInfo['gameDuration'];
+    const gameStartTimestamp = gameInfo['gameStartTimestamp'];
+    const queueid = gameInfo['queueId'];
+    console.log("gameMode: " + gameMode);
+    console.log("gameDuration: " + gameDuration);
+    let date = new Date(gameStartTimestamp).toLocaleDateString("en-AU");
+    let dateObj = new Date(gameStartTimestamp * 1000);
+    let utcString = dateObj.toUTCString();
+    let gameStartTime = utcString.slice(-11, -4);
+    let gameStartDateTime = date + " " + gameStartTime;
+    console.log("gameStartTimestamp: " + gameStartDateTime);
+    console.log("queueid: " + queueIdToString(queueid));
+    // console.log(matchInfo['info']['participants'][participantIndex]);
     const champion = matchInfo['info']['participants'][participantIndex]['championName'];
     const win = matchInfo['info']['participants'][participantIndex]['win'];
     const gameName = matchInfo['info']['participants'][participantIndex]['riotIdGameName'];
@@ -71,7 +96,7 @@ async function parseMatchInfo(matchInfo, puuid) {
     console.log("assists: " + assists);
     console.log("deaths: " + deaths);
     
-    
+
 };
 
 module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId };
