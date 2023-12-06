@@ -73,6 +73,8 @@ module.exports = {
                 matchInfo[matchId] = await parseMatchInfo(matchDetails, puuid);
                 // console.log(matchDetails)
             }
+
+            const embed = createEmbedFromMatchInfo(matchInfo);
             
             // Process matchIds to display match history
             await interaction.editReply(`Match history: ${matchInfo}`);
