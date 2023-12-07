@@ -77,8 +77,7 @@ module.exports = {
             const embed = createEmbedFromMatchInfo(matchInfo);
             
             // Process matchIds to display match history
-            await interaction.editReply(`Match history: ${matchInfo}`);
-
+            await interaction.editReply({ embeds: [embed]});
 
         } catch (error) {
             console.error(error);
