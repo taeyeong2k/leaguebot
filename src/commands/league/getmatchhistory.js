@@ -66,6 +66,7 @@ module.exports = {
 
             // Get match history
             const matchIds = await getMatches(puuid, queueId, numberOfMatches);
+            console.log("Retrieved matches: ", matchIds);
             const matchInfo = {};
 
             for (let matchId of matchIds) {

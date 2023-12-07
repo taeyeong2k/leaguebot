@@ -15,6 +15,7 @@ function queueIdToString(queueId) {
 
 async function getAccountByRiotId(gameName, tagLine) {
     try {
+        console.log("searching for: " + gameName + " #" + tagLine);
         const account = await rAPI.account.getByRiotId({
             region: "ASIA",
             gameName: gameName,
@@ -109,6 +110,7 @@ function parsePlayerInfo(matchInfo, participantIndex) {
     const assists = matchInfo['info']['participants'][participantIndex]['assists'];
     const deaths = matchInfo['info']['participants'][participantIndex]['deaths'];
     const position = matchInfo['info']['participants'][participantIndex]['teamPosition'];
+    const cs = matchInfo['info']['participants'][participantIndex]['totalMinionsKilled'] + matchInfo['info']['participants'][participantIndex]['neutralMinionsKilled'];
     return {
         champion: champion,
         position: position,
@@ -118,6 +120,7 @@ function parsePlayerInfo(matchInfo, participantIndex) {
         kills: kills,
         assists: assists,
         deaths: deaths,
+        cs: cs,
     };
 };
 
