@@ -126,7 +126,6 @@ function parsePlayerInfo(matchInfo, participantIndex) {
 
 function parseTeamInfo(matchInfo) {
     const teams = matchInfo['info']['teams'];
-    console.log("teams: " + teams);
     const blueTeam = teams[0];
     const redTeam = teams[1];
     const blueTeamBans = blueTeam['bans'];
