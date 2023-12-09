@@ -72,7 +72,7 @@ module.exports = {
             for (let matchId of matchIds) {
                 const matchDetails = await getMatchInfo(matchId);
                 matchInfo[matchId] = await parseMatchInfo(matchDetails, puuid);
-                // console.log(matchDetails)
+                console.log(matchInfo[matchId]);
             }
 
             const embed = createEmbedFromMatchInfo(matchInfo);
