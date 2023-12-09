@@ -1,10 +1,13 @@
 const { EmbedBuilder } = require("discord.js");
 
-function createEmbedFromMatchInfo(matchInfo) {
+function createEmbedFromMatchInfo(matchInfo, matchId) {
     const embed = new EmbedBuilder();
     
     // Basic Info
-    const { basicInfo, playerInfo } = matchInfo;
+    const { basicInfo, playerInfo, teamInfo } = matchInfo[matchId];
+    console.log("Match info: ", matchInfo);
+    console.log("Basic info: ", basicInfo);
+    console.log("Player info: ", playerInfo);
     const gameMode = basicInfo.gameMode;
     const duration = new Date(basicInfo.gameDuration * 1000).toISOString().substr(11, 8); // Convert seconds to HH:MM:SS format
     const startTime = basicInfo.gameStartTimestamp;

@@ -1,4 +1,4 @@
-const { getMatches, getMatchInfo, parseMatchInfo } = require('../../utils/riotAPIHelpers');
+const { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId } = require('../../utils/riotAPIHelpers');
 const { isUserRegistered, getRegisteredRiotId } = require('../../utils/summonerHelpers');
 const {createEmbedFromMatchInfo} = require('../../utils/matchEmbeds');
 module.exports = {
@@ -68,17 +68,20 @@ module.exports = {
             const matchIds = await getMatches(puuid, queueId, numberOfMatches);
             console.log("Retrieved matches: ", matchIds);
             const matchInfo = {};
+            const embeds = [];
 
             for (let matchId of matchIds) {
                 const matchDetails = await getMatchInfo(matchId);
                 matchInfo[matchId] = await parseMatchInfo(matchDetails, puuid);
                 console.log(matchInfo[matchId]);
+                const embed = createEmbedFromMatchInfo(matchInfo, matchId);
+                embeds.push(embed);
             }
 
-            const embed = createEmbedFromMatchInfo(matchInfo);
+
             
             // Process matchIds to display match history
-            await interaction.editReply({ embeds: [embed]});
+            await interaction.editReply({ embeds: [embeds[0]]});
 
         } catch (error) {
             console.error(error);
