@@ -43,6 +43,20 @@ async function getSummonerByPuuid(puuid) {
     }
 }
 
+async function getEntriesBySummonerId(id) {
+    try {
+        const entries = await rAPI.league.getEntriesBySummonerId({
+            region: "OC1",
+            summonerId: id,
+        });
+        return entries;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch league entries.');
+    }
+}
+
 async function getMatches(puuid, queue = null, numberOfMatches = 20) {
     try {
         const matchIds = await rAPI.matchV5.getIdsByPuuid({
@@ -157,4 +171,4 @@ function parseTeamInfo(matchInfo) {
 
 
 
-module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId, getSummonerByPuuid };
+module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId, getSummonerByPuuid, getEntriesBySummonerId };

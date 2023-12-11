@@ -1,6 +1,6 @@
 const { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId } = require('../../utils/riotAPIHelpers');
 const { isUserRegistered, getRegisteredRiotId } = require('../../utils/summonerHelpers');
-const {createEmbedFromMatchInfo} = require('../../utils/matchEmbeds');
+const {createEmbedFromMatchInfo} = require('../../utils/embedHandler');
 module.exports = {
     data: {
         name: 'getmatchhistory',
