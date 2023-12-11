@@ -1,6 +1,6 @@
 const { getSummonerByPuuid, getAccountByRiotId, getEntriesBySummonerId } = require("../../utils/riotAPIHelpers");
 const { isUserRegistered, getRegisteredRiotId } = require("../../utils/summonerHelpers");
-
+const { createRankEmbed } = require("../../utils/embedHandler");
 module.exports = {
     data: {
         name: "getrank",
@@ -52,7 +52,8 @@ module.exports = {
             }
         }
         console.log("Ranked Solo", rankedSolo);
-        await interaction.editReply("Rank: " + rankedSolo.tier + " " + rankedSolo.rank + " " + rankedSolo.leaguePoints + " LP")
+        const embed = createRankEmbed(rankedSolo);
+        await interaction.editReply({ embeds: [embed] });
         } catch (error) {
             console.error(error);
             await interaction.editReply("Failed to retrieve rank.");

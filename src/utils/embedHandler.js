@@ -32,7 +32,21 @@ function createEmbedFromMatchInfo(matchInfo, matchId) {
 
 
 function createRankEmbed(rankInfo) {
-    
+    const embed = new EmbedBuilder();
+
+    const queueType = rankInfo.queueType;
+    const tier = rankInfo.tier;
+    const rank = rankInfo.rank;
+    const lp = rankInfo.leaguePoints;
+    const wins = rankInfo.wins;
+    const losses = rankInfo.losses;
+    const winrate = Math.round((wins / (wins + losses)) * 100);
+    const hotStreak = rankInfo.hotStreak;
+
+    embed.setTitle("Rank Information");
+    embed.setColor("#0099ff");
+    embed.setDescription(`**Queue Type:** ${queueType}\n**Rank:** ${tier} ${rank} ${lp} LP\n**Wins:** ${wins}\n**Losses:** ${losses}\n**Winrate:** ${winrate}%\n**Hot Streak:** ${hotStreak}`);
+    return embed;
 }
 
-module.exports = { createEmbedFromMatchInfo };
+module.exports = { createEmbedFromMatchInfo, createRankEmbed };
