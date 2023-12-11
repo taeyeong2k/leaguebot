@@ -9,10 +9,8 @@ module.exports = {
 
     run: async ({ interaction, client }) => {
         const discordUserId = interaction.user.id; // Get the Discord user ID
-
         try {
             const isRegistered = await isUserRegistered(discordUserId);
-
             if (isRegistered) {
                 const data = await readPlayerList();
                 const summonerDetails = data[discordUserId];
