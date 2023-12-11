@@ -29,6 +29,20 @@ async function getAccountByRiotId(gameName, tagLine) {
     }
 }
 
+async function getSummonerByPuuid(puuid) {
+    try {
+        const summoner = await rAPI.summoner.getByPUUID({
+            region: "OC1",
+            puuid: puuid,
+        });
+        return summoner;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch summoner information.');
+    }
+}
+
 async function getMatches(puuid, queue = null, numberOfMatches = 20) {
     try {
         const matchIds = await rAPI.matchV5.getIdsByPuuid({
@@ -143,4 +157,4 @@ function parseTeamInfo(matchInfo) {
 
 
 
-module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId };
+module.exports = { getMatches, getMatchInfo, parseMatchInfo, getAccountByRiotId, getSummonerByPuuid };

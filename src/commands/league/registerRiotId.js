@@ -1,4 +1,4 @@
-const { getAccountByRiotId } = require('../../utils/riotAPIHelpers');
+const { getAccountByRiotId, getSummonerByPuuid } = require('../../utils/riotAPIHelpers');
 const { isUserRegistered } = require('../../utils/summonerHelpers');
 const { readPlayerList, writePlayerList } = require('../../utils/jsonFileHandler');
 
@@ -35,6 +35,9 @@ module.exports = {
             // Check if this Discord user has already registered a summoner
             const account = await getAccountByRiotId(gameName, tagLine);
             console.log(account);
+
+            // Get summoner information using SUMMONER-V4 endpoint
+            const summonerInfo = await getSummonerByPuuid(account.puuid);
     
             // Read the existing data
             let data = await readPlayerList();
@@ -44,6 +47,7 @@ module.exports = {
                 puuid: account.puuid,
                 gameName: account.gameName,
                 tagLine: account.tagLine,
+                id: summonerInfo.id,
             };
     
             // Write the updated data back to the JSON file
