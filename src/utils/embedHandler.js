@@ -30,4 +30,9 @@ function createEmbedFromMatchInfo(matchInfo, matchId) {
     return embed;
 };
 
+
+function createRankEmbed(rankInfo) {
+    
+}
+
 module.exports = { createEmbedFromMatchInfo };
