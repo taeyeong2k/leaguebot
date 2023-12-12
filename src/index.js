@@ -1,5 +1,6 @@
 const { Client, IntentsBitField, ThreadAutoArchiveDuration } = require('discord.js');
 const { CommandKit } = require('commandkit');
+const { getAllChampions } = require('./utils/datadragonHelper');
 const path = require('path');
 require('dotenv').config();
 
@@ -26,6 +27,9 @@ new CommandKit({
     skipBuiltInValidations: true,
     bulkRegister: true,
 });
+
+// Load champions from Data Dragon
+await getAllChampions();
 
 
 client.on('ready', (c) => {
