@@ -1,6 +1,5 @@
-const { RiotAPI, DDragon } = require('@fightmegg/riot-api');
+const { DDragon } = require('@fightmegg/riot-api');
 
-const rAPI = new RiotAPI(process.env.RIOT_API_KEY);
 const ddragon = new DDragon();
 async function getLatestVersion () {
     try {
