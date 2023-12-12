@@ -1,5 +1,7 @@
 const { DDragon } = require('@fightmegg/riot-api');
 const fs = require('fs').promises;
+const { loadChampions } = require('./jsonFileHandler');
+const path = require('path');
 const ddragon = new DDragon();
 async function getLatestVersion () {
     try {
@@ -31,7 +33,7 @@ async function getAllChampions () {
         const champions = await ddragon.champion.all({
             version: version,
         });
-        const filePath = "../champions.json";
+        const filePath = path.join(__dirname, '../champions.json');
         await fs.writeFile(filePath, JSON.stringify(champions, null, 2));
         return champions;
     } catch (error) {
@@ -40,4 +42,17 @@ async function getAllChampions () {
     }
 }
 
-module.exports = { getLatestVersion, getChampionByName, getAllChampions };
+async function getChampionById(id) {
+    const championsJson= await loadChampions();
+    const champions = championsJson.data;
+    const idString = id.toString();
+    console.log(champions);
+    for (let key in champions) {
+        if (champions[key].key === idString) {
+            return champions[key];
+        }
+    }
+    return null;
+}
+
+module.exports = { getLatestVersion, getChampionByName, getAllChampions, getChampionById };

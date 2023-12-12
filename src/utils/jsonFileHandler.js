@@ -21,4 +21,14 @@ async function writePlayerList(data) {
     }
 }
 
-module.exports = { readPlayerList, writePlayerList };
+async function loadChampions() {
+    try {
+        const champions = await fs.readFile(path.join(__dirname, '../champions.json'), 'utf8');
+        return JSON.parse(champions);
+    } catch (error) {
+        console.error('Error loading champions:', error);
+        throw new Error('Failed to load champions.');
+    }
+}
+
+module.exports = { readPlayerList, writePlayerList, loadChampions };
