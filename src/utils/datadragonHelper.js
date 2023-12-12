@@ -46,7 +46,6 @@ async function getChampionById(id) {
     const championsJson= await loadChampions();
     const champions = championsJson.data;
     const idString = id.toString();
-    console.log(champions);
     for (let key in champions) {
         if (champions[key].key === idString) {
             return champions[key];
