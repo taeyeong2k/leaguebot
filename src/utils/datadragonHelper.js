@@ -11,5 +11,18 @@ async function getLatestVersion () {
     }
 }
 
+async function getChampionByName (name) {
+    try {
+        const version = await getLatestVersion();
+        const champion = await ddragon.champion.byName({
+            version: version,
+            championName: name,
+        });
+        return champion;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Failed to fetch champion.');
+    }
+}
 
-module.exports = { getLatestVersion };
+module.exports = { getLatestVersion, getChampionByName };
