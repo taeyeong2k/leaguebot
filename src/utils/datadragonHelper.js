@@ -1,5 +1,5 @@
 const { DDragon } = require('@fightmegg/riot-api');
-
+const fs = require('fs').promises;
 const ddragon = new DDragon();
 async function getLatestVersion () {
     try {
@@ -31,6 +31,8 @@ async function getAllChampions () {
         const champions = await ddragon.champion.all({
             version: version,
         });
+        const filePath = "../champions.json";
+        await fs.writeFile(filePath, JSON.stringify(champions, null, 2));
         return champions;
     } catch (error) {
         console.error(error);
