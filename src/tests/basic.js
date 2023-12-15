@@ -1,9 +1,14 @@
-const { getLatestVersion, getChampionByName, getAllChampions, getChampionById } = require('../utils/datadragonHelper');
+const {
+  getLatestVersion,
+  getChampionByName,
+  getAllChampions,
+  getChampionById,
+} = require("../utils/datadragonHelper");
 
 async function main() {
-    const champions = await getAllChampions();
-    const rakan = await getChampionById(497);
-    console.log(rakan);
+  const champions = await getAllChampions();
+  const rakan = await getChampionById(497);
+  console.log(rakan);
 }
 
 main();
