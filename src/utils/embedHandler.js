@@ -67,7 +67,7 @@ function createRankEmbed(rankInfo) {
   embed.setTitle("Rank Information");
   embed.setColor("#0099ff");
   embed.setDescription(
-    `**Queue Type:** ${queueType}\n**Rank:** ${tier} ${rank} ${lp} LP\n**Wins:** ${wins}\n**Losses:** ${losses}\n**Winrate:** ${winrate}%\n**Hot Streak:** ${hotStreak}`,
+    `**Queue Type:** ${queueType}\n**Rank:** ${tier} ${rank} ${lp} LP\n**Wins:** ${wins}\n**Losses:** ${losses}\n**Winrate:** ${winrate}%`,
   );
   return embed;
 }
