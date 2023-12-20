@@ -33,7 +33,7 @@ function createEmbedFromMatchInfo(matchInfo, matchId) {
   embed.setTitle(`Match History: ${gameName}#${tagLine}`);
   embed.setColor("#0099ff");
   embed.setDescription(
-    `**Game Mode:** ${gameMode}\n**Duration:** ${duration}\n**Start Time:** ${startTime}\n**Queue Type:** ${queueId}`,
+    `**Game Mode:** ${gameMode}\n**Duration:** ${duration}\n**Start Time:** ${startTime}\n**Queue Type:** ${queueId}`
   );
   embed.addFields(
     {
@@ -46,7 +46,7 @@ function createEmbedFromMatchInfo(matchInfo, matchId) {
       value: `**Kills:** ${kills}\n**Assists:** ${assists}\n**Deaths:** ${deaths}`,
       inline: true,
     },
-    { name: "CS", value: `${cs}`, inline: true },
+    { name: "CS", value: `${cs}`, inline: true }
   );
 
   return embed;
@@ -67,7 +67,7 @@ function createRankEmbed(rankInfo) {
   embed.setTitle("Rank Information");
   embed.setColor("#0099ff");
   embed.setDescription(
-    `**Queue Type:** ${queueType}\n**Rank:** ${tier} ${rank} ${lp} LP\n**Wins:** ${wins}\n**Losses:** ${losses}\n**Winrate:** ${winrate}%`,
+    `**Queue Type:** ${queueType}\n**Rank:** ${tier} ${rank} ${lp} LP\n**Wins:** ${wins}\n**Losses:** ${losses}\n**Winrate:** ${winrate}%`
   );
   return embed;
 }
