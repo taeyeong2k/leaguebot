@@ -62,7 +62,6 @@ function createRankEmbed(rankInfo) {
   const wins = rankInfo.wins;
   const losses = rankInfo.losses;
   const winrate = Math.round((wins / (wins + losses)) * 100);
-  const hotStreak = rankInfo.hotStreak;
 
   embed.setTitle("Rank Information");
   embed.setColor("#0099ff");
