@@ -71,4 +71,4 @@ function createRankEmbed(rankInfo) {
   return embed;
 }
 
-module.exports = { createEmbedFromMatchInfo, createRankEmbed };
+module.exports = { createEmbedFromMatchInfo };
