@@ -54,7 +54,6 @@ function createEmbedFromMatchInfo(matchInfo, matchId) {
 
 function createRankEmbed(rankInfo) {
   const embed = new EmbedBuilder();
-
   const queueType = rankInfo.queueType;
   const tier = rankInfo.tier;
   const rank = rankInfo.rank;
