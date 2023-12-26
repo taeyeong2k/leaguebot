@@ -57,7 +57,6 @@ module.exports = {
         id: summonerInfo.id,
       };
 
-      // Write the updated data back to the JSON file
       await writePlayerList(data);
 
       interaction.reply(
