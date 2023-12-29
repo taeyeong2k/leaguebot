@@ -16,13 +16,13 @@ module.exports = {
       {
         name: "name",
         type: 3, // Integer representing 'STRING' type in Discord API
-        description: "The name of the summoner",
+        description: "Riot ID Name",
         required: true,
       },
       {
         name: "tagline",
         type: 3,
-        description: "Your Riot ID Tagline",
+        description: "Riot ID Tagline",
         required: true,
       },
     ],
