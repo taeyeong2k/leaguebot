@@ -34,7 +34,6 @@ module.exports = {
     const discordUserId = interaction.user.id; // Get the Discord user ID
 
     try {
-      // Remove '#' if present in tagLine
       if (tagLine.startsWith("#")) {
         tagLine = tagLine.substring(1);
       }
@@ -45,8 +44,6 @@ module.exports = {
 
       // Get summoner information using SUMMONER-V4 endpoint
       const summonerInfo = await getSummonerByPuuid(account.puuid);
-
-      // Read the existing data
       let data = await readPlayerList();
 
       // Add specific summoner details to the list with Discord user ID as key
