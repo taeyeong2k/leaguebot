@@ -33,6 +33,7 @@ module.exports = {
     let tagLine = interaction.options.getString("tagline");
     const discordUserId = interaction.user.id; // Get the Discord user ID
 
+    // Strip # from tagline before sending
     try {
       if (tagLine.startsWith("#")) {
         tagLine = tagLine.substring(1);
