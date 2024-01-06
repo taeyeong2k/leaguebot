@@ -20,13 +20,10 @@ module.exports = {
         return interaction.reply("You do not have a summoner registered.");
       }
 
-      // Read the existing data
       let data = await readPlayerList();
 
       // Remove the user's entry
       delete data[discordUserId];
-
-      // Write the updated data back to the JSON file
       await writePlayerList(data);
 
       interaction.reply("Your Riot ID has been removed.");
